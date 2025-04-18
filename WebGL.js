@@ -113,26 +113,6 @@ function initVertexBufferForLaterUse(gl, vertices, colors){
     return o;
 }
 
-function drawRectColor(gl, matrix, color) {
-  let rectVertices = [
-    -0.5, -0.5, 0.0,
-     0.5, -0.5, 0.0,
-    -0.5,  0.5, 0.0,
-    -0.5,  0.5, 0.0,
-     0.5, -0.5, 0.0,
-     0.5,  0.5, 0.0,
-  ];
-  let rectColors = [];
-  for (let i = 0; i < 6; i++) rectColors.push(...color);
-
-  let rectModel = initVertexBufferForLaterUse(gl, rectVertices, rectColors);
-  initAttributeVariable(gl, program.a_Position, rectModel.vertexBuffer);
-  initAttributeVariable(gl, program.a_Color, rectModel.colorBuffer);
-  gl.uniformMatrix4fv(program.u_modelMatrix, false, matrix.elements);
-  gl.drawArrays(gl.TRIANGLES, 0, rectModel.numVertices);
-}
-
-
 function drawRect(gl, matrix, color) {
   let rectVertices = [
     -0.5, -0.5, 0.0,
@@ -206,21 +186,9 @@ function drawCircle(gl, matrix, radius, color) {
 var transformMat = new Matrix4(); //cuon 4x4 matrix
 var transformMatCircle1 = new Matrix4(); //initial circle base transformation matrix
 transformMatCircle1.setTranslate(0.5, 0, 0);
-
-//NOTE: You are NOT allowed to change the vertex information here
-var triangleVerticesA = [0.0, 0.2, 0.0, -0.1, -0.3, 0.0, 0.1, -0.3, 0.0]; //green rotating triangle vertices
-var triangleColorA = [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0 ]; //green trotating riangle color
-
-//NOTE: You are NOT allowed to change the vertex information here
-var triangleVerticesB = [0.0, 0.0, 0.0, -0.1, -0.5, 0.0, 0.1, -0.5, 0.0]; //green rotating triangle vertices
-var triangleColorB= [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0 ]; //green trotating riangle color
-
    
 var triangle1XMove = 0;
 var triangle1YMove = 0;
-var triangle2Angle = 125;
-var triangle2HeightScale = 1;
-var triangle3Angle = 0;
 var grab = false;
 var canGrab = false;
 
@@ -272,10 +240,6 @@ function main(){
     program.u_modelMatrix = gl.getUniformLocation(program, 'u_modelMatrix');
     if(program.a_Position<0 || program.a_Color<0 || program.u_modelMatrix < 0)  
         console.log('Error: f(program.a_Position<0 || program.a_Color<0 || .....');
-
-    /////create vertex buffer of the two triangle models for later use
-    triangleModelA = initVertexBufferForLaterUse(gl, triangleVerticesA, triangleColorA);
-    triangleModelB = initVertexBufferForLaterUse(gl, triangleVerticesB, triangleColorB);
 
     ////create vertex buffer of the circle with red color, light green and dark green color
     circleModel = initVertexBufferForLaterUse(gl, circleVertices, circleColors);
