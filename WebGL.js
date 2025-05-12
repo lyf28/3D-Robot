@@ -498,7 +498,7 @@ function draw(gl) {
   projMatrix.setPerspective(60, 1, 1, 100);
   gl.uniformMatrix4fv(program.u_ViewMatrix, false, viewMatrix.elements);
   gl.uniformMatrix4fv(program.u_ProjMatrix, false, projMatrix.elements);
-  gl.uniform3f(program.u_LightPosition, 0, 5, 2);
+  gl.uniform3f(program.u_LightPosition, 2, 2, 5);
   gl.uniform3f(program.u_ViewPosition, 0, 3, 3);
 
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -509,7 +509,7 @@ function draw(gl) {
   floorMat.scale(4, 0.2, 4);
   drawCube(gl, floorMat, [0.3, 0.3, 0.6]);
 
-  let lightMarker = new Matrix4().setTranslate(0, 5, 2).scale(0.3, 0.3, 0.3);
+  let lightMarker = new Matrix4().setTranslate(2, 2, 5).scale(0.3, 0.3, 0.3);
   drawSphere(gl, lightMarker, 1, [1, 1, 1]);
 
   triangle1XMove = Math.max(-1.5, Math.min(1.5, triangle1XMove));
