@@ -509,6 +509,9 @@ function draw(gl) {
   floorMat.scale(4, 0.2, 4);
   drawCube(gl, floorMat, [0.3, 0.3, 0.6]);
 
+  let lightMarker = new Matrix4().setTranslate(0, 5, 2).scale(0.3, 0.3, 0.3);
+  drawSphere(gl, lightMarker, 1, [1, 1, 1]);
+
   triangle1XMove = Math.max(-1.5, Math.min(1.5, triangle1XMove));
   triangle1YMove = Math.max(-1.5, Math.min(1.5, triangle1YMove));
 
